@@ -1,0 +1,57 @@
+---
+title: "Workshop3"
+author: "Ayaz"
+date: '2022-03-03'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Data Wrangling
+
+
+``` {r}
+# data Loading 
+
+survey <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-05-18/survey.csv')
+
+country <- survey%>%
+  distinct(country)
+
+survey%>%
+  count(country, sort = TRUE)
+
+survey_short <- survey %>% 
+  filter(
+    country=='United States' |
+      country == 'USA' |
+      country == 'US' |
+      country == 'U.S.' |
+      country == 'Usa' |
+      country == "United States of America"
+      )
+survey_short %>% 
+  filter(
+    annual_salary > 50000 &
+      gender == "Woman"
+  )
+
+survey_short %>% 
+  select(how_old_are_you,
+         annual_salary,
+         industry,
+         gender
+         ) %>% filter(
+           gender == "Woman"
+         ) %>% count(
+          industry, sort = TRUE
+         )
+  
+
+```
+
+
+
