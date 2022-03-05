@@ -21,6 +21,8 @@ survey <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesda
 country <- survey%>%
   distinct(country)
 
+# Workshpop 4
+
 survey%>%
   count(country, sort = TRUE)
 
