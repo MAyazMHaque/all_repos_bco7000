@@ -462,6 +462,394 @@ survey_short %&gt;%
 ## 10 Education (Primary/Secondary)          592
 ## # … with 760 more rows</code></pre>
 </div>
+<div id="session_5-arrange-topn" class="section level1">
+<h1>Session_5 (Arrange, top(n))</h1>
+<pre class="r"><code>survey_short %&gt;% 
+  head(10) %&gt;%
+  select(timestamp, how_old_are_you, job_title)</code></pre>
+<pre><code>## # A tibble: 10 × 3
+##    timestamp          how_old_are_you job_title                         
+##    &lt;chr&gt;              &lt;chr&gt;           &lt;chr&gt;                             
+##  1 4/27/2021 11:02:10 25-34           Research and Instruction Librarian
+##  2 4/27/2021 11:02:38 25-34           Marketing Specialist              
+##  3 4/27/2021 11:02:41 25-34           Program Manager                   
+##  4 4/27/2021 11:02:42 25-34           Accounting Manager                
+##  5 4/27/2021 11:02:46 25-34           Scholarly Publishing Librarian    
+##  6 4/27/2021 11:02:51 25-34           Publishing Assistant              
+##  7 4/27/2021 11:03:00 25-34           Librarian                         
+##  8 4/27/2021 11:03:01 45-54           Systems Analyst                   
+##  9 4/27/2021 11:03:02 35-44           Senior Accountant                 
+## 10 4/27/2021 11:03:03 25-34           Office Manager</code></pre>
+<pre class="r"><code>knitr::kable(survey_short[1:10,1:5])</code></pre>
+<table>
+<colgroup>
+<col width="14%" />
+<col width="12%" />
+<col width="22%" />
+<col width="26%" />
+<col width="24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">timestamp</th>
+<th align="left">how_old_are_you</th>
+<th align="left">industry</th>
+<th align="left">job_title</th>
+<th align="left">additional_context_on_job_title</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">4/27/2021 11:02:10</td>
+<td align="left">25-34</td>
+<td align="left">Education (Higher Education)</td>
+<td align="left">Research and Instruction Librarian</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">4/27/2021 11:02:38</td>
+<td align="left">25-34</td>
+<td align="left">Accounting, Banking &amp; Finance</td>
+<td align="left">Marketing Specialist</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">4/27/2021 11:02:41</td>
+<td align="left">25-34</td>
+<td align="left">Nonprofits</td>
+<td align="left">Program Manager</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">4/27/2021 11:02:42</td>
+<td align="left">25-34</td>
+<td align="left">Accounting, Banking &amp; Finance</td>
+<td align="left">Accounting Manager</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">4/27/2021 11:02:46</td>
+<td align="left">25-34</td>
+<td align="left">Education (Higher Education)</td>
+<td align="left">Scholarly Publishing Librarian</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">4/27/2021 11:02:51</td>
+<td align="left">25-34</td>
+<td align="left">Publishing</td>
+<td align="left">Publishing Assistant</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">4/27/2021 11:03:00</td>
+<td align="left">25-34</td>
+<td align="left">Education (Primary/Secondary)</td>
+<td align="left">Librarian</td>
+<td align="left">High school, FT</td>
+</tr>
+<tr class="even">
+<td align="left">4/27/2021 11:03:01</td>
+<td align="left">45-54</td>
+<td align="left">Computing or Tech</td>
+<td align="left">Systems Analyst</td>
+<td align="left">Data developer/ETL Developer</td>
+</tr>
+<tr class="odd">
+<td align="left">4/27/2021 11:03:02</td>
+<td align="left">35-44</td>
+<td align="left">Accounting, Banking &amp; Finance</td>
+<td align="left">Senior Accountant</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">4/27/2021 11:03:03</td>
+<td align="left">25-34</td>
+<td align="left">Nonprofits</td>
+<td align="left">Office Manager</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>survey_short %&gt;% top_n(n=10)</code></pre>
+<pre><code>## Selecting by race</code></pre>
+<pre><code>## # A tibble: 33 × 18
+##    timestamp   how_old_are_you industry job_title additional_cont… annual_salary
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;                    &lt;dbl&gt;
+##  1 4/27/2021 … 25-34           Chemica… Sr. Qual… &lt;NA&gt;                     47902
+##  2 4/27/2021 … 35-44           Nonprof… Director… &lt;NA&gt;                    107000
+##  3 4/27/2021 … 35-44           Enginee… Planning… I would have se…        116000
+##  4 4/27/2021 … 25-34           Recruit… HR Gener… &lt;NA&gt;                     45000
+##  5 4/27/2021 … 25-34           Computi… Support … &lt;NA&gt;                     77000
+##  6 4/27/2021 … 25-34           Hospita… Bar Dire… I do purchasing…         95000
+##  7 4/27/2021 … 35-44           Enterta… Assistan… &lt;NA&gt;                     78000
+##  8 4/27/2021 … 25-34           Marketi… Marketin… &lt;NA&gt;                     58000
+##  9 4/27/2021 … 25-34           Fitness… Pilates … I have a dual c…         75000
+## 10 4/27/2021 … 25-34           Computi… UX Engin… Front-end devel…         95000
+## # … with 23 more rows, and 12 more variables: other_monetary_comp &lt;dbl&gt;,
+## #   currency &lt;chr&gt;, currency_other &lt;chr&gt;, additional_context_on_income &lt;chr&gt;,
+## #   country &lt;chr&gt;, state &lt;chr&gt;, city &lt;chr&gt;,
+## #   overall_years_of_professional_experience &lt;chr&gt;,
+## #   years_of_experience_in_field &lt;chr&gt;,
+## #   highest_level_of_education_completed &lt;chr&gt;, gender &lt;chr&gt;, race &lt;chr&gt;</code></pre>
+<pre class="r"><code>survey_short %&gt;% 
+  arrange(annual_salary) %&gt;%
+  select(industry,annual_salary)</code></pre>
+<pre><code>## # A tibble: 20,827 × 2
+##    industry                      annual_salary
+##    &lt;chr&gt;                                 &lt;dbl&gt;
+##  1 Stay-at-home parent                       0
+##  2 Nonprofits                                0
+##  3 Law                                       0
+##  4 Education (Primary/Secondary)             0
+##  5 Computing or Tech                         0
+##  6 Education (Primary/Secondary)             0
+##  7 Computing or Tech                         0
+##  8 Marketing, Advertising &amp; PR               0
+##  9 Nonprofits                                0
+## 10 Business or Consulting                    0
+## # … with 20,817 more rows</code></pre>
+<pre class="r"><code>survey_short %&gt;% 
+  arrange(desc(annual_salary)) %&gt;%
+  select(industry,annual_salary)</code></pre>
+<pre><code>## # A tibble: 20,827 × 2
+##    industry                             annual_salary
+##    &lt;chr&gt;                                        &lt;dbl&gt;
+##  1 Entertainment                              3600000
+##  2 Art &amp; Design                               3000000
+##  3 Health care                                1900000
+##  4 Computing or Tech                          1650000
+##  5 Government and Public Administration       1334782
+##  6 Business or Consulting                     1260000
+##  7 Health care                                1250000
+##  8 Law                                        1200000
+##  9 Engineering or Manufacturing               1100000
+## 10 Law                                        1100000
+## # … with 20,817 more rows</code></pre>
+<pre class="r"><code>survey_short %&gt;% count(industry, sort = TRUE)</code></pre>
+<pre><code>## # A tibble: 881 × 2
+##    industry                                 n
+##    &lt;chr&gt;                                &lt;int&gt;
+##  1 Computing or Tech                     3355
+##  2 Nonprofits                            1982
+##  3 Education (Higher Education)          1936
+##  4 Health care                           1410
+##  5 Government and Public Administration  1316
+##  6 Accounting, Banking &amp; Finance         1306
+##  7 Engineering or Manufacturing          1223
+##  8 Law                                    881
+##  9 Marketing, Advertising &amp; PR            832
+## 10 Education (Primary/Secondary)          668
+## # … with 871 more rows</code></pre>
+<div id="session_5-groupby-with-aggregate-function-like-mean-sum" class="section level2">
+<h2>Session_5 Group(By) with aggregate function like mean, sum</h2>
+<pre class="r"><code>survey_short %&gt;%
+  mutate(total_income=annual_salary + other_monetary_comp) %&gt;%
+  select(industry, annual_salary, other_monetary_comp, total_income,)</code></pre>
+<pre><code>## # A tibble: 20,827 × 4
+##    industry                      annual_salary other_monetary_comp total_income
+##    &lt;chr&gt;                                 &lt;dbl&gt;               &lt;dbl&gt;        &lt;dbl&gt;
+##  1 Education (Higher Education)          55000                   0        55000
+##  2 Accounting, Banking &amp; Finance         34000                  NA           NA
+##  3 Nonprofits                            62000                3000        65000
+##  4 Accounting, Banking &amp; Finance         60000                7000        67000
+##  5 Education (Higher Education)          62000                  NA           NA
+##  6 Publishing                            33000                2000        35000
+##  7 Education (Primary/Secondary)         50000                  NA           NA
+##  8 Computing or Tech                    112000               10000       122000
+##  9 Accounting, Banking &amp; Finance         45000                   0        45000
+## 10 Nonprofits                            47500                   0        47500
+## # … with 20,817 more rows</code></pre>
+<pre class="r"><code># For Mean salary across the industries
+survey_short %&gt;% 
+  group_by(industry) %&gt;%
+  mutate(avg_salary = mean(annual_salary, na.rm =TRUE)) %&gt;%
+  select(industry,gender,avg_salary) %&gt;%
+  arrange(desc(avg_salary)) %&gt;%
+  ungroup()</code></pre>
+<pre><code>## # A tibble: 20,827 × 3
+##    industry                                                    gender avg_salary
+##    &lt;chr&gt;                                                       &lt;chr&gt;       &lt;dbl&gt;
+##  1 Commercial Building Material Distribution                   Man       400000 
+##  2 Sports                                                      Man       300000 
+##  3 Corporate Training                                          Woman     280000 
+##  4 Energy (oil &amp; gas &amp; associated products, renewable power, … Woman     253300 
+##  5 Pharmaceutical/biotechnology                                Woman     227500 
+##  6 Big Pharma                                                  Woman     220000 
+##  7 Medical/Pharmaceutical                                      Woman     220000 
+##  8 Food &amp; Beverage                                             Woman     210167.
+##  9 Food &amp; Beverage                                             Woman     210167.
+## 10 Food &amp; Beverage                                             Man       210167.
+## # … with 20,817 more rows</code></pre>
+<pre class="r"><code># For Minimum salary in different industries
+survey_short %&gt;% 
+  group_by(industry) %&gt;%
+  mutate(min_salary = min(annual_salary, na.rm =TRUE)) %&gt;%
+  select(industry,gender,min_salary) %&gt;%
+  arrange(desc(min_salary)) %&gt;%
+  ungroup()</code></pre>
+<pre><code>## # A tibble: 20,827 × 3
+##    industry                                                    gender min_salary
+##    &lt;chr&gt;                                                       &lt;chr&gt;       &lt;dbl&gt;
+##  1 Commercial Building Material Distribution                   Man        400000
+##  2 Sports                                                      Man        300000
+##  3 Corporate Training                                          Woman      280000
+##  4 Energy (oil &amp; gas &amp; associated products, renewable power, … Woman      253300
+##  5 Pharmaceutical/biotechnology                                Woman      227500
+##  6 Big Pharma                                                  Woman      220000
+##  7 Medical/Pharmaceutical                                      Woman      220000
+##  8 consulting                                                  Woman      205000
+##  9 Clean Energy (eg. energy efficiency, renewables, etc.)      Man        200000
+## 10 Biotech / life sciences                                     Woman      196000
+## # … with 20,817 more rows</code></pre>
+<pre class="r"><code># For Max salaries across the industries and gender
+survey_short %&gt;% 
+  group_by(industry, gender) %&gt;%
+  mutate(max_salary = max(annual_salary, na.rm =TRUE)) %&gt;%
+  select(industry,max_salary) %&gt;%
+  arrange(desc(max_salary)) %&gt;%
+  ungroup()</code></pre>
+<pre><code>## Adding missing grouping variables: `gender`</code></pre>
+<pre><code>## # A tibble: 20,827 × 3
+##    gender     industry      max_salary
+##    &lt;chr&gt;      &lt;chr&gt;              &lt;dbl&gt;
+##  1 Non-binary Entertainment    3600000
+##  2 Non-binary Entertainment    3600000
+##  3 Non-binary Entertainment    3600000
+##  4 Non-binary Entertainment    3600000
+##  5 Non-binary Entertainment    3600000
+##  6 Woman      Art &amp; Design     3000000
+##  7 Woman      Art &amp; Design     3000000
+##  8 Woman      Art &amp; Design     3000000
+##  9 Woman      Art &amp; Design     3000000
+## 10 Woman      Art &amp; Design     3000000
+## # … with 20,817 more rows</code></pre>
+</div>
+</div>
+<div id="session_5" class="section level1">
+<h1>Session_5</h1>
+<div id="summerising-data" class="section level2">
+<h2>(Summerising Data)</h2>
+<pre class="r"><code># Group by industry and check mean salary
+  survey_short %&gt;%
+    group_by(industry) %&gt;%
+    summarise(avg_salary_2 = mean(annual_salary, na.rm=TRUE))%&gt;%
+    select(industry,avg_salary_2)</code></pre>
+<pre><code>## # A tibble: 881 × 2
+##    industry                               avg_salary_2
+##    &lt;chr&gt;                                         &lt;dbl&gt;
+##  1 &quot;\&quot;Government Relations\&quot; (Lobbying)&quot;        65000 
+##  2 &quot;Academia - STEM&quot;                            32000 
+##  3 &quot;Academia / Research&quot;                        68500 
+##  4 &quot;Academia--cell and molecular biology&quot;       48000 
+##  5 &quot;Academic Medicine&quot;                          55000 
+##  6 &quot;Academic Press Production&quot;                  42000 
+##  7 &quot;academic publishing&quot;                        73000 
+##  8 &quot;Academic publishing&quot;                        47933.
+##  9 &quot;Academic Publishing&quot;                        55500 
+## 10 &quot;academic research&quot;                          64000 
+## # … with 871 more rows</code></pre>
+<pre class="r"><code># group by industry and gender and summerise for avg salary
+  survey_short %&gt;%
+    group_by(gender, industry) %&gt;%
+    summarise(avg_salary_3 = mean(annual_salary, na.rm=TRUE))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;gender&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 1,074 × 3
+## # Groups:   gender [6]
+##    gender industry                                avg_salary_3
+##    &lt;chr&gt;  &lt;chr&gt;                                          &lt;dbl&gt;
+##  1 Man    Academic Medicine                             55000 
+##  2 Man    Academic research                             63500 
+##  3 Man    Accounting, Banking &amp; Finance                112073.
+##  4 Man    Aerospace                                    155000 
+##  5 Man    Agriculture or Forestry                       67558.
+##  6 Man    Agriculture/Agriculture Chemical              91112 
+##  7 Man    Architecture                                  58000 
+##  8 Man    Architecture, Engineering, Construction      150000 
+##  9 Man    Art &amp; Design                                  69732.
+## 10 Man    Auto Mfg.                                    104000 
+## # … with 1,064 more rows</code></pre>
+<pre class="r"><code># summerising for more than one variable like max salary, min salary and avg salary
+  
+   survey_short %&gt;%
+    group_by(industry, gender) %&gt;%
+    summarise(
+      avg_salary_4 = mean(annual_salary, na.rm=TRUE),
+      max_salary_4 = max(annual_salary, na.rm = TRUE),
+      min_salary_4 = min(annual_salary, na.rm = TRUE))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;industry&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 1,074 × 5
+## # Groups:   industry [881]
+##    industry                        gender avg_salary_4 max_salary_4 min_salary_4
+##    &lt;chr&gt;                           &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+##  1 &quot;\&quot;Government Relations\&quot; (Lob… Woman        65000         65000        65000
+##  2 &quot;Academia - STEM&quot;               Woman        32000         32000        32000
+##  3 &quot;Academia / Research&quot;           Woman        68500         68500        68500
+##  4 &quot;Academia--cell and molecular … Woman        48000         48000        48000
+##  5 &quot;Academic Medicine&quot;             Man          55000         55000        55000
+##  6 &quot;Academic Press Production&quot;     Woman        42000         42000        42000
+##  7 &quot;academic publishing&quot;           Woman        73000         73000        73000
+##  8 &quot;Academic publishing&quot;           Woman        47933.        73000        30000
+##  9 &quot;Academic Publishing&quot;           Woman        55500         55500        55500
+## 10 &quot;academic research&quot;             Woman        64000         64000        64000
+## # … with 1,064 more rows</code></pre>
+</div>
+<div id="in-order-to-add-conditional-variable-in-our-dataframe-we-use-case_when" class="section level2">
+<h2>In order to add conditional variable in our Dataframe we use
+Case_when</h2>
+<pre class="r"><code>Survey_very_short &lt;- survey_short %&gt;%
+  select(industry, gender, annual_salary)
+
+
+
+# Adding conditional column annual_salary_level
+
+Survey_very_short %&gt;%
+  mutate(annual_salary_level =
+    case_when(annual_salary &gt; 700000 ~ &quot;High&quot;,
+              annual_salary &gt; 70000 &amp; annual_salary &lt;=700000 ~ &quot;Medium&quot;,
+              T ~ &quot;Low&quot;)) %&gt;%
+  arrange(desc(annual_salary))</code></pre>
+<pre><code>## # A tibble: 20,827 × 4
+##    industry                             gender    annual_salary annual_salary_l…
+##    &lt;chr&gt;                                &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;           
+##  1 Entertainment                        Non-bina…       3600000 High            
+##  2 Art &amp; Design                         Woman           3000000 High            
+##  3 Health care                          Woman           1900000 High            
+##  4 Computing or Tech                    Man             1650000 High            
+##  5 Government and Public Administration Woman           1334782 High            
+##  6 Business or Consulting               Man             1260000 High            
+##  7 Health care                          Woman           1250000 High            
+##  8 Law                                  Man             1200000 High            
+##  9 Engineering or Manufacturing         Woman           1100000 High            
+## 10 Law                                  Man             1100000 High            
+## # … with 20,817 more rows</code></pre>
+<pre class="r"><code># create a variable highly_paid_women for women whose annual salary is greater than 50000 then YES other wise is NO      
+
+Survey_very_short %&gt;%
+  mutate(highly_paid_women =
+           case_when(annual_salary &gt; 50000 &amp; 
+                      gender == &quot;Woman&quot; ~ &#39;YES&#39;,
+                      T ~ &#39;NO&#39;))%&gt;%
+            arrange(desc(annual_salary))</code></pre>
+<pre><code>## # A tibble: 20,827 × 4
+##    industry                             gender    annual_salary highly_paid_wom…
+##    &lt;chr&gt;                                &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;           
+##  1 Entertainment                        Non-bina…       3600000 NO              
+##  2 Art &amp; Design                         Woman           3000000 YES             
+##  3 Health care                          Woman           1900000 YES             
+##  4 Computing or Tech                    Man             1650000 NO              
+##  5 Government and Public Administration Woman           1334782 YES             
+##  6 Business or Consulting               Man             1260000 NO              
+##  7 Health care                          Woman           1250000 YES             
+##  8 Law                                  Man             1200000 NO              
+##  9 Engineering or Manufacturing         Woman           1100000 YES             
+## 10 Law                                  Man             1100000 NO              
+## # … with 20,817 more rows</code></pre>
+</div>
+</div>
 
 
 

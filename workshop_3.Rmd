@@ -55,5 +55,125 @@ survey_short %>%
 
 ```
 
+# Session_5 (Arrange, top(n))
+```{r}
+survey_short %>% 
+  head(10) %>%
+  select(timestamp, how_old_are_you, job_title)
+
+knitr::kable(survey_short[1:10,1:5])
+  
+survey_short %>% top_n(n=10)
+
+survey_short %>% 
+  arrange(annual_salary) %>%
+  select(industry,annual_salary)
+
+survey_short %>% 
+  arrange(desc(annual_salary)) %>%
+  select(industry,annual_salary)
+
+survey_short %>% count(industry, sort = TRUE)
+
+```
+
+## Session_5 Group(By) with aggregate function like mean, sum
+
+```{r}
+survey_short %>%
+  mutate(total_income=annual_salary + other_monetary_comp) %>%
+  select(industry, annual_salary, other_monetary_comp, total_income,)
+
+
+# For Mean salary across the industries
+survey_short %>% 
+  group_by(industry) %>%
+  mutate(avg_salary = mean(annual_salary, na.rm =TRUE)) %>%
+  select(industry,gender,avg_salary) %>%
+  arrange(desc(avg_salary)) %>%
+  ungroup()
+
+# For Minimum salary in different industries
+survey_short %>% 
+  group_by(industry) %>%
+  mutate(min_salary = min(annual_salary, na.rm =TRUE)) %>%
+  select(industry,gender,min_salary) %>%
+  arrange(desc(min_salary)) %>%
+  ungroup()
+
+# For Max salaries across the industries and gender
+survey_short %>% 
+  group_by(industry, gender) %>%
+  mutate(max_salary = max(annual_salary, na.rm =TRUE)) %>%
+  select(industry,max_salary) %>%
+  arrange(desc(max_salary)) %>%
+  ungroup()
+
+
+```
+
+# Session_5
+
+## (Summerising Data)
+```{r}
+# Group by industry and check mean salary
+  survey_short %>%
+    group_by(industry) %>%
+    summarise(avg_salary_2 = mean(annual_salary, na.rm=TRUE))%>%
+    select(industry,avg_salary_2)
+
+# group by industry and gender and summerise for avg salary
+  survey_short %>%
+    group_by(gender, industry) %>%
+    summarise(avg_salary_3 = mean(annual_salary, na.rm=TRUE))
+  
+# summerising for more than one variable like max salary, min salary and avg salary
+  
+   survey_short %>%
+    group_by(industry, gender) %>%
+    summarise(
+      avg_salary_4 = mean(annual_salary, na.rm=TRUE),
+      max_salary_4 = max(annual_salary, na.rm = TRUE),
+      min_salary_4 = min(annual_salary, na.rm = TRUE))
+    
+```
+
+## In order to add conditional variable in our Dataframe we use Case_when
+```{r}
+Survey_very_short <- survey_short %>%
+  select(industry, gender, annual_salary)
+
+
+
+# Adding conditional column annual_salary_level
+
+Survey_very_short %>%
+  mutate(annual_salary_level =
+    case_when(annual_salary > 700000 ~ "High",
+              annual_salary > 70000 & annual_salary <=700000 ~ "Medium",
+              T ~ "Low")) %>%
+  arrange(desc(annual_salary))
+
+# create a variable highly_paid_women for women whose annual salary is greater than 50000 then YES other wise is NO      
+
+Survey_very_short %>%
+  mutate(highly_paid_women =
+           case_when(annual_salary > 50000 & 
+                      gender == "Woman" ~ 'YES',
+                      T ~ 'NO'))%>%
+            arrange(desc(annual_salary))
+                    
+
+
+```
+
+
+
+
+
+
+
+
+
 
 
