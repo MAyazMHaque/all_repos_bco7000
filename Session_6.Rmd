@@ -7,10 +7,86 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(skimr)
+
 ```
 
-## Session 6 10/03/22
+## Session 6 10/03/22 (Data Visualization)
 ```{r}
+#Loaded the data:
+survey <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-05-18/survey.csv')
+
+
+survey_short <- survey %>% 
+  filter(
+    country=='United States' |
+      country == 'USA' |
+      country == 'US' |
+      country == 'U.S.' |
+      country == 'Usa' |
+      country == "United States of America"
+      )
+
 
 ```
+
+```{r}
+data(mpg)
+
+# Two variables
+mpg %>%
+  ggplot(
+    aes(displ, hwy, colour = class)) +
+    geom_point()
+
+# adding more variables in shape and size 
+mpg %>%
+  ggplot(
+    aes(displ, hwy, colour = manufacturer, shape = trans, size = cyl)) +
+    geom_point()
+
+# one discrete and one continous variable    
+mpg %>%
+  ggplot(
+    aes(class,hwy)) +
+    geom_boxplot()
+
+#Two variabels with qurantile relation
+mpg %>%
+  ggplot(
+    aes(cty,hwy)) +
+    geom_smooth()
+
+# Two discrete variables 
+mpg %>%
+  ggplot(
+    aes(class,manufacturer)) +
+    geom_count()
+
+# one variable
+mpg %>%
+  ggplot(
+    aes(manufacturer)) +
+    geom_bar()
+
+
+summary(survey)
+skim(survey) # part of assignment
+
+```
+
+### Generate as many as possible meningful visualization using survey data set 
+
+```{r}
+# Check the relationship between highest qualification and overall income of individual
+
+survey %>%
+  ggplot(
+    aes(highest_level_of_education_completed, annual_salary)) +
+    geom_col()
+# 
+
+```
+
 
