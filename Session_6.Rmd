@@ -1,0 +1,16 @@
+---
+title: "Session_6_10_03-22"
+author: "Ayaz"
+date: '2022-03-10'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Session 6 10/03/22
+```{r}
+
+```
+
