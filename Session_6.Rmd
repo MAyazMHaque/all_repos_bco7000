@@ -92,7 +92,10 @@ survey %>%
   ggplot(
     aes(highest_level_of_education_completed, gender, colour = race)) +
     geom_count()
-
+survey %>% 
+  ggplot(
+    aes(highest_level_of_education_completed, industry)) +
+    geom_count()
 ```
 
 
