@@ -85,7 +85,13 @@ survey %>%
   ggplot(
     aes(highest_level_of_education_completed, annual_salary)) +
     geom_col()
-# 
+
+
+# relationship between race gender and highest_level_education
+survey %>%
+  ggplot(
+    aes(highest_level_of_education_completed, gender, colour = race)) +
+    geom_count()
 
 ```
 

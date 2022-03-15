@@ -1,0 +1,11 @@
+---
+title: "Session_7"
+output: html_document
+date: '2022-03-15'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(skimr)
+```
