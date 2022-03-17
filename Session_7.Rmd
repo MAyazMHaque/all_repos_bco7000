@@ -9,3 +9,101 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(skimr)
 ```
+
+# Session_7 workshop exersices "Modelling"
+
+```{r}
+coffee_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+
+summary(coffee_ratings)
+skim(coffee_ratings)
+
+
+```
+
+
+
+```{r}
+# Option 1 of changing character into factor
+coffee_ratings <- coffee_ratings %>% mutate(
+  species = as_factor(species)
+)
+
+# option 2 of changing charachter into factors
+
+coffee_ratings$owner <- as_factor(coffee_ratings$owner)
+
+# the reason of converting into the Factors is that we can apply lot functions on the factors which can not be applied to the characters 
+
+# using lump function
+coffee_ratings %>%count(country_of_origin, sort = TRUE)
+
+# Adding all the countries which appeared less than top 10 (n) in the dataset
+
+coffee_ratings <- coffee_ratings %>% mutate(
+  country_of_origin_lumped = fct_lump(country_of_origin, n=15)
+)
+
+coffee_ratings%>%count(country_of_origin_lumped, sort = TRUE)
+
+# Use ggplot with geom_col where one variable is  country of origin lumped
+
+coffee_ratings %>% ggplot(
+  aes(country_of_origin_lumped, total_cup_points)) +
+  geom_col()
+
+# using fct_reorder which reorder one variable with respct to other variable with what function on it, below country is reordered with respect to sum of total cup points 
+
+coffee_ratings %>% 
+  mutate(
+    country_of_origin_lumped = fct_reorder(
+      country_of_origin_lumped, total_cup_points, sum))%>% ggplot(
+  aes(country_of_origin_lumped, total_cup_points))+
+  geom_col()+
+  coord_flip() 
+
+# below country is reordered with respect to sum of total cup points 
+
+coffee_ratings %>%
+  mutate(
+    country_of_origin_lumped = fct_reorder(
+      country_of_origin_lumped, total_cup_points, mean))%>% ggplot(
+  aes(country_of_origin_lumped, total_cup_points))+
+  geom_col()+
+  coord_flip()
+
+# above code will arrange in order of mean but the graph shows the sum of total_cup_points
+  
+```
+
+To see the distribution of one variable 
+
+```{r}
+coffee_ratings %>% ggplot(
+  aes(total_cup_points)) +
+  geom_histogram()
+
+# Using Box Plot
+coffee_ratings %>% ggplot(
+  aes(total_cup_points)) +
+  geom_boxplot()
+
+
+
+```
+
+
+
+```{r}
+ggplot(data = coffee_ratings) + geom_histogram(
+  mapping = aes(x=total_cup_points),binwidth = 5)
+
+ggplot(
+  data = coffee_ratings) +
+  geom_bar(mapping = aes(x=country_of_origin),
+           fill="Navy") +
+  coord_flip()
+                                              
+```
+
+
