@@ -31,3 +31,5 @@ results <- lm(total_cup_points ~ altitude_mean_meters + aroma +
                 acidity + sweetness + uniformity, data = coffee_ratings)   
 
 summary(results)
+
+            
